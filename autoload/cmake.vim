@@ -17,7 +17,9 @@ function! s:get_list(type)
 
     let help = {}
     for ident in split( output, '\n' )
-        let help[ ident ] = ""
+        let help[ ident ] = {
+            \ 'word': ident,
+            \ 'menu': '[CMAKE]' }
     endfor
     let s:cmake_help[ a:type ] = help
 endfunction
@@ -90,6 +92,15 @@ function! cmake#all()
         call extend(rc,  keys( s:cmake_help[type] ) )
     endfor
     return sort( rc )
+endfunction
+
+function! cmake#all_with_type()
+    call cmake#initialize()
+    let rc = []
+    for type in s:cmake_types
+        call extend(rc, values( s:cmake_help[type] ) )
+    endfor
+    return rc
 endfunction
 
 let &cpo = s:save_cpo
