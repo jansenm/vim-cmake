@@ -12,9 +12,6 @@ function! s:ref_source.available()
     return executable('cmake')
 endfunction
 
-function! s:ref_source.opened(query)
-    let b:vim_ref_cmake = 'list'
-endfunction
 
 function! s:ref_source.leave()
     unlet! b:vim_ref_cmake
