@@ -24,7 +24,7 @@ endfunction
 
 function! s:get_help(type, what)
     if s:cmake_help[ a:type ][a:what] == ""
-        let output = system( 'cmake --help-'. a:type .' '. a:what )
+        let output = cmake#output( '--help-'. a:type .' '. shellescape( a:what ) )
         let s:cmake_help[ a:type ][a:what] = output
     endif
     return s:cmake_help[ a:type ][a:what]
