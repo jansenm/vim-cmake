@@ -2,16 +2,12 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-scriptencoding utf-8
-
-
 let s:ref_source = { 'name': 'cmake' }
 
 " This reference is available if the cmake executable is available
 function! s:ref_source.available()
     return executable('cmake')
 endfunction
-
 
 function! s:ref_source.leave()
     unlet! b:vim_ref_cmake
@@ -22,6 +18,7 @@ function! s:ref_source.get_keyword()
         let kwd = expand('<cword>')
         return kwd
     else
+        echo getline('.')
         return getline('.')
     endif
 endfunction
