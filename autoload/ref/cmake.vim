@@ -39,7 +39,7 @@ endfunction
 " Get the body for the given query
 function! s:ref_source.get_body(query)
     if a:query == "Module Reference"
-        return keys( cmake#modules() )
+        return sort( keys( cmake#modules() ) )
     elseif a:query == "Custom Module Help"
         return cmake#output('--help-custom-modules')
     elseif a:query == "Compatibility Commands"
@@ -49,11 +49,11 @@ function! s:ref_source.get_body(query)
     elseif a:query == "Policies"
         return cmake#output('--help-policies')
     elseif a:query == "Variable Reference"
-        return keys( cmake#variables() )
+        return sort( keys( cmake#variables() ) )
     elseif a:query == "Command Reference"
-        return keys( cmake#commands() )
+        return sort( keys( cmake#commands() ) )
     elseif a:query == "Property Referencee"
-        return keys( cmake#properties() )
+        return sort( keys( cmake#properties() ) )
     elseif a:query == "Reference"
         return cmake#all()
     elseif a:query != ""
