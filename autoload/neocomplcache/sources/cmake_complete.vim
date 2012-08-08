@@ -33,7 +33,7 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)
 endfunction
 
 " No idea why it is needed. But without it it does not work.
-function! s:source.get_keyword_pos(cur_text)"
+function! s:source.get_keyword_pos(cur_text)
     let [cur_keyword_pos, cur_keyword_str] = neocomplcache#match_word(a:cur_text)
     return cur_keyword_pos
 endfunction"
