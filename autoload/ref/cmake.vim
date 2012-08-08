@@ -52,7 +52,7 @@ function! s:ref_source.get_body(query)
         return sort( keys( cmake#commands() ) )
     elseif a:query == "Property Referencee"
         return sort( keys( cmake#properties() ) )
-    elseif a:query == "Reference"
+    elseif a:query == "Full Reference"
         return cmake#all()
     elseif a:query != ""
         let b:vim_ref_cmake = 'entry'
