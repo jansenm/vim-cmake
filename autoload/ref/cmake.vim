@@ -17,18 +17,15 @@ function! s:ref_source.opened(query)
 endfunction
 
 function! s:ref_source.leave()
-    unlet b:vim_ref_cmake
+    unlet! b:vim_ref_cmake
 endfunction
 
 function! s:ref_source.get_keyword()
-    if b:vim_ref_cmake == 'list'
-        return getline('.')
-    else
-        let isk = &l:iskeyword
-        setlocal isk& isk+=:
+    if exists( "b:vim_ref_cmake"  ) && b:vim_ref_cmake == 'entry'
         let kwd = expand('<cword>')
-        let &l:iskeyword = isk
         return kwd
+    else
+        return getline('.')
     endif
 endfunction
 
@@ -38,6 +35,7 @@ endfunction
 
 " Get the body for the given query
 function! s:ref_source.get_body(query)
+    let b:vim_ref_cmake = 'list'
     if a:query == "Module Reference"
         return sort( keys( cmake#modules() ) )
     elseif a:query == "Custom Module Help"
