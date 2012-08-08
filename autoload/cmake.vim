@@ -74,6 +74,14 @@ function! cmake#properties(what)
     return s:cmake_help['property']
 endfunction
 
+function! cmake#complete(str)
+    call cmake#initialize()
+    let rc = []
+    for type in s:cmake_types
+        call extend( rc, filter(keys(s:cmake_help[type]), 'v:val =~? "^\\V" . a:str'))
+    endfor
+    return sort( rc )
+endfunction
 
 function! cmake#all()
     call cmake#initialize()

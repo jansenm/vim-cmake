@@ -32,6 +32,10 @@ function! s:ref_source.get_keyword()
     endif
 endfunction
 
+function! s:ref_source.complete(query)
+    return cmake#complete(a:query)
+endfunction
+
 " Get the body for the given query
 function! s:ref_source.get_body(query)
     if a:query == "Module Reference"
