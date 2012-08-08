@@ -54,10 +54,6 @@ function! cmake#modules()
     return s:cmake_help['module']
 endfunction
 
-function! cmake#custom_modules()
-    call cmake#initialize()
-    return s:cmake_help['custom_module']
-endfunction
 
 function! cmake#variables()
     call cmake#initialize()
