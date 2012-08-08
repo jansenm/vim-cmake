@@ -25,11 +25,7 @@ function! s:get_list(type)
 endfunction
 
 function! s:get_help(type, what)
-    if s:cmake_help[ a:type ][a:what] == ""
-        let output = cmake#output( '--help-'. a:type .' '. shellescape( a:what ) )
-        let s:cmake_help[ a:type ][a:what] = output
-    endif
-    return s:cmake_help[ a:type ][a:what]
+    return cmake#output( '--help-'. a:type .' '. shellescape( a:what ) )
 endfunction
 
 function! cmake#find_help(identifier)
