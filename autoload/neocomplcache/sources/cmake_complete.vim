@@ -18,7 +18,7 @@ function! s:source.initialize()
   " Set rank.
     call neocomplcache#set_dictionary_helper(
         \ g:neocomplcache_source_rank,
-        \ 'filename_complete', 3)
+        \ 'cmake_complete', 3)
 
 endfunction
 
