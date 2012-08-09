@@ -1,0 +1,62 @@
+*vim-cmake.txt*   CMake Reference And Autocompletion             Aug 09, 2012
+
+Author:     Michael Jansen  <kde@michael-jansen.biz>
+Copyright:  (C) 2012 Michael Jansen                      *ref-cmake-copyright*
+License:    MIT license {{{
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    }}}
+=============================================================================
+Content                                                      *ref-cmake* {{{1
+
+    1. Introduction ...........|ref-cmake-introduction|
+    2. Usage ..................|ref-cmake-usage|
+    3. Install ................|ref-cmake-install|
+    4. Configuration Examples .|ref-cmake-examples|
+    5. Changelog ..............|ref-cmake-changelog|
+
+=============================================================================
+1. Introduction                                 *ref-cmake-introduction* {{{1
+
+TODO
+
+=============================================================================
+2. Usage                                               *ref-cmake-usage* {{{1
+
+TODO
+
+=============================================================================
+3. Install                                           *ref-cmake-install* {{{1
+
+TODO
+
+=============================================================================
+4. Configuration Examples                           *ref-cmake-examples* {{{1
+
+TODO
+
+=============================================================================
+5. Changelog                                       *ref-cmake-changelog* {{{1
+
+TODO
+
+=============================================================================
+Modelines: {{{1
+vim:tw=78:ts=8:ft=help:fdm=marker:
