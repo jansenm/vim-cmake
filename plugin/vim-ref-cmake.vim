@@ -24,18 +24,43 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 "
-if exists('did_vim_ref_cmake') || version < 700
+" See docs/vim-ref-cmake.txt for help or type :help RefCMake
+
+
+" ============================================================================
+" BEGIN:                                                                {{{1
+
+" Load once                                                             {{{2
+if exists('loaded_vim_ref_cmake') || version < 700
     finish
 endif
-let did_vim_ref_cmake = 1
+let loaded_vim_ref_cmake = 1
 
+" Saving 'cpoptions'                                                    {{{2
+let s:save_cpo = &cpo
+set cpo&vim
 
+"                                                                       }}}1
+" ============================================================================
+" CONFIGURATION:                                                        {{{1
+
+" Setup default options                                                 {{{2
 if !exists('g:vim_ref_cmake_map_keys')
     let g:vim_ref_cmake_map_keys = 1
 endif
 
+" Mappings                                                              {{{2
 if g:vim_ref_cmake_map_keys
-    autocmd FileType cmake nnoremap <silent> <buffer> K :call ref#ref( "cmake ". expand("<cword>"))<CR>
+    autocmd FileType cmake nnoremap <silent> <buffer> K :call ref#K( "cmake ". expand("<cword>"))<CR>
 endif
 
+"                                                                       }}}1
+" ============================================================================
+" END:                                                                  {{{1
 
+" Restore 'cpoptions' {{{2
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+"
+" vim: foldmethod=marker
