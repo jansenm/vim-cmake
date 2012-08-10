@@ -1,7 +1,7 @@
 " FILE:         autoload/ref/cmake.vim
 " AUTHOR:       Michael Jansen <kde@michael-jansen.biz>
 " WEBSITE:      http://michael-jansen.biz
-" LICENSE:      MIT license  {{{
+" LICENSE:      MIT license                                             {{{2
 "     Copyright (C) 2012 Michael Jansen
 "
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -22,24 +22,40 @@
 "     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-" }}}
 
-" Save nocompatible
+"                                                                       }}}1
+" ============================================================================
+" INIT:                                                                 {{{1
+
+" Saving 'cpoptions'                                                    {{{2
 let s:save_cpo = &cpo
 set cpo&vim
 
+"                                                                       }}}1
+" ============================================================================
+" HELPER FUNCTIONS:                                                     {{{1
+
+"                                                                       }}}1
+" ============================================================================
+" VIM-REF SOURCE OBJECT:                                                {{{1
+
+" The source definition. See `help ref-sources`                         {{{2
 let s:ref_source = { 'name': 'cmake' }
 
-" This reference is available if the cmake executable is available
-function! s:ref_source.available()
+function! s:ref_source.available()                                    " {{{2
+    " This source is available if cmake is available
     return executable('cmake')
 endfunction
 
-function! s:ref_source.leave()
+function! s:ref_source.leave()                                        " {{{2
+    " The source is left.
     unlet! b:vim_ref_cmake
 endfunction
 
-function! s:ref_source.get_keyword()
+function! s:ref_source.get_keyword()                                  " {{{2
+    " Return the current keyword.
+    "   -> The complete line if we are in list mode (the default)
+    "   -> The word under the cursor in entry mode
     if exists( "b:vim_ref_cmake"  ) && b:vim_ref_cmake == 'entry'
         let kwd = expand('<cword>')
         return kwd
@@ -49,35 +65,38 @@ function! s:ref_source.get_keyword()
     endif
 endfunction
 
-function! s:ref_source.complete(query)
+function! s:ref_source.complete(query)                                " {{{2
+    " VIM-REF requests a completion for string a:query.
     return cmake#complete(a:query)
 endfunction
 
-" Get the body for the given query
-function! s:ref_source.get_body(query)
+function! s:ref_source.get_body(query)                                " {{{2
+    " VIM-REF requests a new page for a:query.
     let b:vim_ref_cmake = 'list'
+    "
     if a:query == "Module Reference"
-        return sort( keys( cmake#modules() ) )
+        return sort( keys( cmake#module_names() ) )
     elseif a:query == "Custom Module Help"
-        return cmake#output('--help-custom-modules')
+        return cmake#cmake_output('--help-custom-modules')
     elseif a:query == "Compatibility Commands"
-        return cmake#output('--help-compatcommands')
+        return cmake#cmake_output('--help-compatcommands')
     elseif a:query == "Documentation"
-        return cmake#output('--help-full')
+        return cmake#cmake_output('--help-full')
     elseif a:query == "Policies"
-        return cmake#output('--help-policies')
+        return cmake#cmake_output('--help-policies')
     elseif a:query == "Variable Reference"
-        return sort( keys( cmake#variables() ) )
+        return sort( keys( cmake#variable_names() ) )
     elseif a:query == "Command Reference"
-        return sort( keys( cmake#commands() ) )
+        return sort( keys( cmake#command_names() ) )
     elseif a:query == "Property Referencee"
-        return sort( keys( cmake#properties() ) )
+        return sort( keys( cmake#property_names() ) )
     elseif a:query == "Full Reference"
-        return cmake#all()
+        return cmake#all_names()
     elseif a:query != ""
         let b:vim_ref_cmake = 'entry'
-        return cmake#find_help( a:query )
+        return cmake#find_help_for( a:query )
     endif
+
     return [
         \ "Documentation",
         \ "Custom Module Help",
@@ -90,10 +109,32 @@ function! s:ref_source.get_body(query)
         \ "Compatibility Commands" ]
 endfunction
 
-function! ref#cmake#define()
+
+
+
+"                                                                       }}}1
+" ============================================================================
+" HOOK INTO VIM-REF:                                                    {{{1
+
+" Tell VIM-REF a source from filetype cmake is in town.                 {{{2
+call ref#register_detection('cmake', 'cmake')
+
+function! ref#cmake#define()                                          " {{{2
+    " VIM-REF requests our source object.
     return s:ref_source
 endfunction
 
 
+"                                                                       }}}1
+" ============================================================================
+" CLEANUP:                                                              {{{1
+
+" Restore 'cpoptions'                                                   {{{2
 let &cpo = s:save_cpo
 unlet s:save_cpo
+
+
+"                                                                       }}}1
+" ============================================================================
+" MODELINES:                                                            {{{2
+" vim: foldmethod=marker

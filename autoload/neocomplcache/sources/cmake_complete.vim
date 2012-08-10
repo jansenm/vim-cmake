@@ -1,7 +1,7 @@
 " FILE:         autoload/neocomplcache/sources/cmake_complete.vim
 " AUTHOR:       Michael Jansen <kde@michael-jansen.biz>
 " WEBSITE:      http://michael-jansen.biz
-" LICENSE:      MIT license  {{{
+" LICENSE:      MIT license                                             {{{2
 "     Copyright (C) 2012 Michael Jansen
 "
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -22,22 +22,29 @@
 "     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-" }}}
 
 
+"                                                                       }}}1
+" ============================================================================
+" BEGIN:                                                                {{{1
+
+" Saving 'cpoptions'                                                    {{{2
 let s:save_cpo = &cpo
 set cpo&vim
 
-" The source definition. See `help neocomplcache-sources`
+"                                                                       }}}1
+" ============================================================================
+" NEOCOMPLCACHE-SOURCE OBJECT:                                          {{{1
+
+" The source definition. See `help neocomplcache-sources`               {{{2
 let s:source = {
     \ 'name': 'cmake_complete',
     \ 'kind': 'ftplugin',
     \ 'filetypes': { 'cmake' : 1 }
     \ }
 
-" Initialize the source
-function! s:source.initialize()
-  " Initialize.
+function! s:source.initialize()                                       " {{{2
+    " NEOCOMPLCACHE asks us to prepare for work
     call neocomplcache#set_completion_length(
         \ 'cmake_complete',
         \ g:neocomplcache_auto_completion_start_length)
@@ -49,28 +56,44 @@ function! s:source.initialize()
 
 endfunction
 
-" Complete a word. No idea what it does but it works. :))
-function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)
+function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str) " {{{2
+    " NEOCOMPLCACHE requests a word completion.
+
+    " Complete a word. No idea what it does but it works. :))
     let keyword_list = neocomplcache#keyword_filter(
-        \ cmake#all_with_type(),
+        \ cmake#all_names_with_type(),
         \ a:cur_keyword_str)
     return neocomplcache#keyword_filter(
         \ keyword_list,
         \ a:cur_keyword_str)
+
 endfunction
 
-" No idea why it is needed. But without it it does not work.
-function! s:source.get_keyword_pos(cur_text)
+function! s:source.get_keyword_pos(cur_text)                          " {{{2
+    " No idea why it is needed. But without it it does not work.
     let [cur_keyword_pos, cur_keyword_str] = neocomplcache#match_word(a:cur_text)
     return cur_keyword_pos
 endfunction"
 
-" Register the source
+"                                                                       }}}1
+" ============================================================================
+" HOOK INTO NEOCOMPLCACHE:                                              {{{1
+
 function! neocomplcache#sources#cmake_complete#define()
+    " NEOCOMPLCACHE requests out source objects.
     return s:source
 endfunction
 
-" Reset
+"                                                                       }}}1
+" ============================================================================
+" END:                                                                  {{{1
+
+" Restore 'cpoptions'                                                   {{{2
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
+
+"                                                                       }}}1
+" ============================================================================
+" MODELINES:                                                            {{{2
+" vim: foldmethod=marker

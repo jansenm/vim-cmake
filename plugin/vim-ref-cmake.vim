@@ -1,7 +1,7 @@
 " FILE:         vim-ref-cmake.vim
 " AUTHOR:       Michael Jansen <kde@michael-jansen.biz>
 " WEBSITE:      http://michael-jansen.biz
-" LICENSE:      MIT license  {{{
+" LICENSE:      MIT license                                             {{{2
 "     Copyright (C) 2012 Michael Jansen
 "
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -27,6 +27,7 @@
 " See docs/vim-ref-cmake.txt for help or type :help RefCMake
 
 
+"                                                                       }}}1
 " ============================================================================
 " BEGIN:                                                                {{{1
 
@@ -44,23 +45,22 @@ set cpo&vim
 " ============================================================================
 " CONFIGURATION:                                                        {{{1
 
-" Setup default options                                                 {{{2
-if !exists('g:vim_ref_cmake_map_keys')
-    let g:vim_ref_cmake_map_keys = 1
-endif
+" No configuration needed. The functionality is provided b
+"       - vim-ref       (https://github.com/thinca/vim-ref)
+"       - neocomplcache (https://github.com/Shougo/neocomplcache)
+"       - unite.vim     (https://github.com/Shougo/unite.vim (via vim-ref))
 
-" Mappings                                                              {{{2
-if g:vim_ref_cmake_map_keys
-    autocmd FileType cmake nnoremap <silent> <buffer> K :call ref#K( "cmake ". expand("<cword>"))<CR>
-endif
 
 "                                                                       }}}1
 " ============================================================================
 " END:                                                                  {{{1
 
-" Restore 'cpoptions' {{{2
+" Restore 'cpoptions'                                                   {{{2
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-"
+
+"                                                                       }}}1
+" ============================================================================
+" MODELINES:                                                            {{{2
 " vim: foldmethod=marker
