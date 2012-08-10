@@ -23,39 +23,81 @@ License:    MIT license {{{
     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }}}
-=============================================================================
-Content                                                      *ref-cmake* {{{1
-
-    1. Introduction ...........|ref-cmake-introduction|
-    2. Usage ..................|ref-cmake-usage|
-    3. Install ................|ref-cmake-install|
-    4. Configuration Examples .|ref-cmake-examples|
-    5. Changelog ..............|ref-cmake-changelog|
 
 =============================================================================
-1. Introduction                                 *ref-cmake-introduction* {{{1
+CONTENT                                                      *ref-cmake* {{{1
 
-TODO
-
-=============================================================================
-2. Usage                                               *ref-cmake-usage* {{{1
-
-TODO
-
-=============================================================================
-3. Install                                           *ref-cmake-install* {{{1
-
-TODO
+    Introduction ...........|ref-cmake-introduction|
+    Usage ..................|ref-cmake-usage|
+    Install ................|ref-cmake-install|
+    Configuration Examples .|ref-cmake-examples|
+    API ....................|ref-cmake-api|
+    Changelog ..............|ref-cmake-changelog|
 
 =============================================================================
-4. Configuration Examples                           *ref-cmake-examples* {{{1
+INTRODUCTION                                    *ref-cmake-introduction* {{{1
 
-TODO
+This plugin adds cmake support to the following plugins:
+
+    - vim-ref       Integrated reference viewer.
+                    https://github.com/thinca/vim-ref
+
+    - neocomplcache Ultimate auto-completion system for Vim.
+                    https://github.com/Shougo/neocomplcache
+
+    - unite.vim     Ultimate interface to unite all sources
+                    https://github.com/Shougo/unite.vim (via vim-ref)
+
+Or in less words. It provides a cmake reference and auto completion system
+that hooks into neocomplcache.
 
 =============================================================================
-5. Changelog                                       *ref-cmake-changelog* {{{1
+USAGE                                                  *ref-cmake-usage* {{{1
 
-TODO
+The plugin does not provide any kind of interface by itself. To use its
+functionality you have to use one of the following plugins:
+
+CMAKE REFERENCE
+
+Using the vim-ref plugin - see|ref-introduction|- which allows command line
+completion.
+
+    :Ref cmake [keyword]
+
+Using the unite plugin see -|unite-introduction|- which has quite some nice
+ways of handling its sources.
+
+    :Unite ref/cmake
+
+CMAKE AUTOCOMPLETION
+
+Cmake autocompletion is provided by hooking into neocomplcache - see
+|neocomplache-introduction|if the filetype is 'cmake'. 
+
+=============================================================================
+CONFIGURATION EXAMPLES                              *ref-cmake-examples* {{{1
+
+To disable the autocompletion part of neocomplcache you have to use the
+neocomplcache configuration options. |g:neocomplcache_source_disable|
+
+    :let g:neocomplcache_source_disable['cmake_complete'] = 1
+
+=============================================================================
+API                                                      *ref-cmake-api* {{{1
+
+This plugin provides some kind of api to acquire cmake help information.
+Please refer to autoload/cmake.vim for reference. If you start to use it
+PLEASE contact me so i know it is official api.
+
+If you like to extend this plugin. Feel free. I long for patches.
+
+=============================================================================
+CHANGELOG                                          *ref-cmake-changelog* {{{1
+
+  1.0: Initial Version
+    - plug into neocomplcache
+    - plug into unite.vim
+    - plug into vim-ref
 
 =============================================================================
 Modelines: {{{1
