@@ -119,10 +119,10 @@ function! cmake#complete(str)                                         " {{{2
     let rc = []
     for type in s:cmake_types
         call extend(
-            rc,
-            filter(
-                keys(s:get_names(type)),
-                'v:val =~? "^\\V" . a:str'))
+            \ rc,
+            \ filter(
+            \     keys(s:get_names(type)),
+            \     'v:val =~? "^\\V" . a:str'))
     endfor
     return sort( rc )
 endfunction
