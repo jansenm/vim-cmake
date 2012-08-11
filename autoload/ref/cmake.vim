@@ -44,7 +44,7 @@ let s:ref_source = { 'name': 'cmake' }
 
 function! s:ref_source.available()                                    " {{{2
     " This source is available if cmake is available
-    return executable('cmake')
+    return cmake#available()
 endfunction
 
 function! s:ref_source.leave()                                        " {{{2

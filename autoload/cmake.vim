@@ -60,7 +60,7 @@ function! s:get_names(type)                                           " {{{2
     " Check if we have the keyword list cached.
     if ! has_key( s:cmake_help, a:type )
         " Ask cmake for the list.
-        let output = system( 'cmake --help-'. a:type .'-list' )
+        let output = cmake#cmake_output( '--help-'. a:type .'-list' )
 
         " Fill the cache
         let help = {}
@@ -111,7 +111,12 @@ endfunction
 
 function! cmake#cmake_output(args)                                    " {{{2
     " Call cmake with a:args and return the output.
-    return system( 'cmake '. a:args )
+    return system( g:vim_cmake_executable ." ". a:args )
+endfunction
+
+function! cmake#available()                                           " {{{2
+    " Check if the cmake executable is available
+    return executable( g:vim_cmake_executable )
 endfunction
 
 function! cmake#complete(str)                                         " {{{2

@@ -44,12 +44,14 @@ set cpo&vim
 "                                                                       }}}1
 " ============================================================================
 " CONFIGURATION:                                                        {{{1
+"
+" DO NOT EDIT CONFIGURATION SETTINGS IN THIS FILE!
+" Define these variables in your local .vimrc to over-ride the default values.
 
-" No configuration needed. The functionality is provided b
-"       - vim-ref       (https://github.com/thinca/vim-ref)
-"       - neocomplcache (https://github.com/Shougo/neocomplcache)
-"       - unite.vim     (https://github.com/Shougo/unite.vim (via vim-ref))
-
+" The cmake executable to use.                                          {{{2
+if !exists('g:vim_cmake_executable')
+    let g:vim_cmake_executable = 'cmake'
+endif
 
 "                                                                       }}}1
 " ============================================================================

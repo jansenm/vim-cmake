@@ -27,12 +27,12 @@ License:    MIT license {{{
 =============================================================================
 CONTENT                                                      *ref-cmake* {{{1
 
-    Introduction ...........|ref-cmake-introduction|
-    Usage ..................|ref-cmake-usage|
-    Install ................|ref-cmake-install|
-    Configuration Examples .|ref-cmake-examples|
+    INTRODUCTION ...........|ref-cmake-introduction|
+    USAGE ..................|ref-cmake-usage|
+    INSTALL ................|ref-cmake-install|
+    CONFIGURATION ..........|ref-cmake-examples|
     API ....................|ref-cmake-api|
-    Changelog ..............|ref-cmake-changelog|
+    CHANGELOG ..............|ref-cmake-changelog|
 
 =============================================================================
 INTRODUCTION                                    *ref-cmake-introduction* {{{1
@@ -77,7 +77,17 @@ CMake autocompletion is provided by hooking into neocomplcache if the filetype
 is 'cmake'. See|neocomplache-introduction|for further informaation.
 
 =============================================================================
-CONFIGURATION EXAMPLES                              *ref-cmake-examples* {{{1
+CONFIGURATION                                       *ref-cmake-examples* {{{1
+
+CMAKE EXECUTABLE~
+
+Use this option to specify where the cmake executable is located. By default
+it is searched on the $PATH. You can specify a absolute path or just a
+different name like 'cmake-2.8'.
+>
+  :let g:vim_cmake_executable = 'cmake'
+
+DISABLE AUTOCOMPLETION~
 
 To disable the autocompletion part of neocomplcache you have to use the
 neocomplcache configuration options. |g:neocomplcache_source_disable|
@@ -95,6 +105,9 @@ If you like to extend this plugin. Feel free. I long for patches.
 
 =============================================================================
 CHANGELOG                                          *ref-cmake-changelog* {{{1
+
+  1.1:
+    - added g:vim_cmake_executable
 
   1.0: Initial Version
     - plug into neocomplcache
