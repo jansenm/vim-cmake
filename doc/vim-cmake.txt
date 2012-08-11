@@ -48,8 +48,10 @@ This plugin adds cmake support to the following plugins:
     - unite.vim     Ultimate interface to unite all sources
                     https://github.com/Shougo/unite.vim (via vim-ref)
 
-Or in less words. It provides a cmake reference and auto completion system
+Or in less words. It provides a cmake reference and a auto completion system
 that hooks into neocomplcache.
+
+The information is acquired from the cmake executable found on $PATH.
 
 =============================================================================
 USAGE                                                  *ref-cmake-usage* {{{1
@@ -57,30 +59,30 @@ USAGE                                                  *ref-cmake-usage* {{{1
 The plugin does not provide any kind of interface by itself. To use its
 functionality you have to use one of the following plugins:
 
-CMAKE REFERENCE
+CMAKE REFERENCE~
 
 Using the vim-ref plugin - see|ref-introduction|- which allows command line
 completion.
-
-    :Ref cmake [keyword]
+ >
+  :Ref cmake [keyword]
 
 Using the unite plugin see -|unite-introduction|- which has quite some nice
 ways of handling its sources.
+>
+  :Unite ref/cmake
 
-    :Unite ref/cmake
+CMAKE AUTOCOMPLETION~
 
-CMAKE AUTOCOMPLETION
-
-Cmake autocompletion is provided by hooking into neocomplcache - see
-|neocomplache-introduction|if the filetype is 'cmake'. 
+CMake autocompletion is provided by hooking into neocomplcache if the filetype
+is 'cmake'. See|neocomplache-introduction|for further informaation.
 
 =============================================================================
 CONFIGURATION EXAMPLES                              *ref-cmake-examples* {{{1
 
 To disable the autocompletion part of neocomplcache you have to use the
 neocomplcache configuration options. |g:neocomplcache_source_disable|
-
-    :let g:neocomplcache_source_disable['cmake_complete'] = 1
+>
+  :let g:neocomplcache_source_disable['cmake_complete'] = 1
 
 =============================================================================
 API                                                      *ref-cmake-api* {{{1
