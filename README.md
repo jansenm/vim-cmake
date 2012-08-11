@@ -15,4 +15,4 @@ or one of the others and clone directly from the repository.
 
 ## Docs
 
-see `h:vim-cmake`
+see `h:ref-cmake-introduction`
