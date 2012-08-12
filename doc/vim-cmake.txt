@@ -91,9 +91,17 @@ CCMAKE EXECUTABLE~
 
 Use this option to specify where the ccmake executable is located. By default
 it is searched on the $PATH. You can specify a absolute path or just a
-different name like 'cmake-2.8'.
+different name like 'ccmake-2.8'.
 >
   :let g:vim_ccmake_executable = 'ccmake'
+
+CTEST EXECUTABLE~
+
+Use this option to specify where the ctest executable is located. By default
+it is searched on the $PATH. You can specify a absolute path or just a
+different name like 'ctest-2.8'.
+>
+  :let g:vim_ctest_executable = 'ctest'
 
 DISABLE AUTOCOMPLETION~
 

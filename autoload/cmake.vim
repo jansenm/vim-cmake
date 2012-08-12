@@ -127,6 +127,11 @@ function! cmake#cmake_output(args)                                    " {{{2
     return system( g:vim_cmake_executable ." ". a:args )
 endfunction
 
+function! cmake#ctest_output(args)                                    " {{{2
+    " Call ctest with a:args and return the output.
+    return system( g:vim_ctest_executable ." ". a:args )
+endfunction
+
 function! cmake#available()                                           " {{{2
     " Check if the cmake executable is available
     return executable( g:vim_cmake_executable )

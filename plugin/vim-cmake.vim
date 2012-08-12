@@ -58,6 +58,16 @@ if !exists('g:vim_ccmake_executable')
     let g:vim_ccmake_executable = 'ccmake'
 endif
 
+" The cpack executable to use.                                          {{{2
+if !exists('g:vim_cpack_executable')
+    let g:vim_cpack_executable = 'cpack'
+endif
+
+" The ctest executable to use.                                          {{{2
+if !exists('g:vim_ctest_executable')
+    let g:vim_ctest_executable = 'ctest'
+endif
+
 "                                                                       }}}1
 " ============================================================================
 " END:                                                                  {{{1
