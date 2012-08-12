@@ -54,7 +54,7 @@ function! s:get_names(type)                                           " {{{2
 
     " Verify type
     if index(s:cmake_types, a:type) == -1
-        throw 'Unknown cmake type'. a:type
+        throw 'Unknown cmake type: '. a:type
     endif
 
     " Check if we have the keyword list cached.
