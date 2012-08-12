@@ -257,7 +257,10 @@ endfunction
 
 function! s:ref_source.complete(query)                                " {{{2
     " VIM-REF requests a completion for string a:query.
-    return cmake#complete(a:query)
+    let rc = cmake#complete(a:query)
+    call extend( rc, cpack#complete(a:query) )
+    call extend( rc, ctest#complete(a:query) )
+    return rc
 endfunction
 
 function! s:ref_source.get_body(query)                                " {{{2
@@ -273,15 +276,28 @@ function! s:ref_source.get_body(query)                                " {{{2
         return function( s:cmake_help_index[ a:query ].func )(a:query)
     endif
 
-    let rc = cmake#find_help_for( a:query )
-
-    if empty(rc)
-        return extend(
-            \ [ "Error: No help for ". a:query, ""],
-            \ s:cmake_landing_page )
+    " First check cmake
+    let rcm = cmake#find_help_for( a:query )
+    if !empty(rcm)
+        return rcm
     endif
 
-    return rc
+    " Second check ctest
+    let rct = ctest#find_help_for( a:query )
+    if !empty(rct)
+        return rct
+    endif
+
+    " Third check cpack
+    let rcp = cpack#find_help_for( a:query )
+    if !empty(rcp)
+        return rcp
+    endif
+
+    " Nothing left
+    return extend(
+        \ [ "Error: No help for ". a:query, ""],
+        \ s:cmake_landing_page )
 
 endfunction
 
