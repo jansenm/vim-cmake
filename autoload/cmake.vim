@@ -79,7 +79,15 @@ function! s:get_names(type)                                           " {{{2
     return s:cmake_help[ a:type ]
 endfunction
 
+
 function! s:get_help_text(type, what)                                 " {{{2
+    " Return the help text for a:what of a:type
+
+    " Verify type
+    if index(s:cmake_types, a:type) == -1
+        throw 'Unknown cmake type: '. a:type
+    endif
+
     " Call cmake with the option --help-<a:what> and return the output. a:what
     " is shellescape()d.
     return cmake#cmake_output( '--help-'. a:type .' '. shellescape( a:what ) )
