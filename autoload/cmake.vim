@@ -133,13 +133,15 @@ function! cmake#complete(str)                                         " {{{2
 endfunction
 
 function! cmake#find_help_for(identifier)                             " {{{2
+    " Return the help for a:identifier
+
     " Search for the help for a:identifier
     for type in s:cmake_types
         if has_key( s:get_names( type ), a:identifier )
             return s:get_help_text( type, a:identifier )
         endif
     endfor
-    return "Sorry no help for ".a:identifier
+    return []
 endfunction
 
 function! cmake#all_names()                                           " {{{2
