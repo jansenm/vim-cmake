@@ -53,6 +53,11 @@ if !exists('g:vim_cmake_executable')
     let g:vim_cmake_executable = 'cmake'
 endif
 
+" The ccmake executable to use.                                         {{{2
+if !exists('g:vim_ccmake_executable')
+    let g:vim_ccmake_executable = 'ccmake'
+endif
+
 "                                                                       }}}1
 " ============================================================================
 " END:                                                                  {{{1

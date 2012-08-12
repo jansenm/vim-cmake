@@ -39,6 +39,7 @@ set cpo&vim
 let s:cmake_landing_page = [
 \ "MAIN DOCUMENTATION:",
 \ "|Documentation|             The complete cmake documentation.",
+\ "|ccmake-documentation|      The complete ccmake documentation.",
 \ "",
 \ "ADDITIONAL DOCUMENTATION:",
 \ "|Custom-Modules|            Custom module documentation.",
@@ -57,6 +58,9 @@ let s:cmake_landing_page = [
 let s:cmake_help_index = {
     \ 'Documentation': {
     \           'func': "s:cmake_index_full_documentation",
+    \           'type': "man" },
+    \ 'ccmake-documentation': {
+    \           'func': "s:page_ccmake",
     \           'type': "man" },
     \ 'Custom-Modules': {
     \           'func': "s:cmake_index_custom_modules",
@@ -87,6 +91,15 @@ let s:cmake_help_index = {
 "                                                                       }}}1
 " ============================================================================
 " HELPER FUNCTIONS:                                                     {{{1
+
+" Page: ccmake Documentation                                            {{{2
+function! s:page_ccmake(query)
+    if index( ref#available_source_names(), 'man' ) > -1
+        return ref#available_sources('man').get_body('ccmake')
+    else
+        return cmake#ccmake_output('--help-full')
+    end
+endfunction
 
 " Page: Compatibility Commands                                          {{{2
 function! s:cmake_index_compatibility(query)

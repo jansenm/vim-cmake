@@ -117,6 +117,11 @@ function! cmake#property_names()                                      " {{{2
     return s:get_names('property')
 endfunction
 
+function! cmake#ccmake_output(args)                                    " {{{2
+    " Call ccmake with a:args and return the output.
+    return system( g:vim_ccmake_executable ." ". a:args )
+endfunction
+
 function! cmake#cmake_output(args)                                    " {{{2
     " Call cmake with a:args and return the output.
     return system( g:vim_cmake_executable ." ". a:args )

@@ -87,6 +87,14 @@ different name like 'cmake-2.8'.
 >
   :let g:vim_cmake_executable = 'cmake'
 
+CCMAKE EXECUTABLE~
+
+Use this option to specify where the ccmake executable is located. By default
+it is searched on the $PATH. You can specify a absolute path or just a
+different name like 'cmake-2.8'.
+>
+  :let g:vim_ccmake_executable = 'ccmake'
+
 DISABLE AUTOCOMPLETION~
 
 To disable the autocompletion part of neocomplcache you have to use the
