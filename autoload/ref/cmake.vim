@@ -57,13 +57,13 @@ let s:cmake_landing_page = [
 let s:cmake_help_index = {
     \ 'Documentation': {
     \           'func': "s:cmake_index_full_documentation",
-    \           'type': "text" },
+    \           'type': "man" },
     \ 'Custom-Modules': {
     \           'func': "s:cmake_index_custom_modules",
-    \           'type': "text" },
+    \           'type': "man" },
     \ 'Policies': {
     \           'func': "s:cmake_index_policies",
-    \           'type': "index" },
+    \           'type': "man" },
     \ 'Reference-Commands': {
     \           'func': "s:cmake_index_commands",
     \           'type': "index" },
@@ -81,7 +81,7 @@ let s:cmake_help_index = {
     \           'type': "index" },
     \ 'Compatibility-Commands': {
     \           'func': "s:cmake_index_compatibility",
-    \           'type': "text" }
+    \           'type': "man" }
     \ }
 
 "                                                                       }}}1
@@ -89,47 +89,59 @@ let s:cmake_help_index = {
 " HELPER FUNCTIONS:                                                     {{{1
 
 " Page: Compatibility Commands                                          {{{2
-function! s:cmake_index_compatibility()
-    return cmake#cmake_output('--help-compatcommands')
+function! s:cmake_index_compatibility(query)
+    if index( ref#available_source_names(), 'man' ) > -1
+        return ref#available_sources('man').get_body('cmakecompat')
+    else
+        return cmake#cmake_output('--help-compatcommands')
+    end
 endfunction
 
 " Page: Custom Modules.                                                 {{{2
-function! s:cmake_index_custom_modules()
+function! s:cmake_index_custom_modules(query)
     return cmake#cmake_output('--help-custom-modules')
 endfunction
 
 " Page: Full Documentation                                              {{{2
-function! s:cmake_index_full_documentation()
-    return cmake#cmake_output('--help-full')
+function! s:cmake_index_full_documentation(query)
+    if index( ref#available_source_names(), 'man' ) > -1
+        return ref#available_sources('man').get_body('cmake')
+    else
+        return cmake#cmake_output('--help-full')
+    end
 endfunction
 
 " Page: Policies                                                        {{{2
-function! s:cmake_index_policies()
-    return cmake#cmake_output('--help-policies')
+function! s:cmake_index_policies(query)
+    if index( ref#available_source_names(), 'man' ) > -1
+        return ref#available_sources('man').get_body('cmakepolicies')
+    else
+        return cmake#cmake_output('--help-policies')
+    end
 endfunction
 
 " List: All Names                                                       {{{2
-function! s:cmake_index_all()
+function! s:cmake_index_all(query)
     return cmake#all_names()
 endfunction
 
 " List: Command Names                                                   {{{2
-function! s:cmake_index_commands()
+function! s:cmake_index_commands(query)
     return sort( keys( cmake#command_names() ) )
 endfunction
 
 " List: Module Names                                                    {{{2
-function! s:cmake_index_modules()
+function! s:cmake_index_modules(query)
     return sort( keys( cmake#module_names() ) )
 endfunction
 
 " List: Property Names                                                  {{{2
-function! s:cmake_index_properties()
+function! s:cmake_index_properties(query)
     return sort( keys( cmake#property_names() ) )
 endfunction
 
 " List: Variable Names                                                  {{{2
-function! s:cmake_index_variables()
+function! s:cmake_index_variables(query)
     return sort( keys( cmake#variable_names() ) )
 endfunction
 
@@ -163,6 +175,17 @@ function! s:ref_source.opened(query)                                  " {{{2
         endif
     endif
 
+    " Make sure the correct syntax file is used.
+    if b:vim_cmake_page_type == 'man'
+        if index( ref#available_source_names(), 'man' ) > -1
+            return ref#available_sources('man').opened('cmake')
+        end
+    else
+        if exists('b:current_syntax') && b:current_syntax !=# 'ref-cmake'
+            syntax clear
+            runtime! syntax/ref-cmake.vim
+        endif
+    end
 endfunction
 
 function! s:ref_source.leave()                                        " {{{2
@@ -203,7 +226,7 @@ function! s:ref_source.get_body(query)                                " {{{2
 
     " Check what is currently shown
     if has_key( s:cmake_help_index, a:query )
-        return function( s:cmake_help_index[ a:query ].func )()
+        return function( s:cmake_help_index[ a:query ].func )(a:query)
     endif
 
     let rc = cmake#find_help_for( a:query )
