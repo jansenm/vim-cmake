@@ -41,6 +41,7 @@ let s:cmake_landing_page = [
 \ "|Documentation|             The complete cmake documentation.",
 \ "|ccmake-documentation|      The complete ccmake documentation.",
 \ "|ctest-documentation|       The complete ctest documentation.",
+\ "|cpack-documentation|       The complete cpack documentation.",
 \ "",
 \ "ADDITIONAL DOCUMENTATION:",
 \ "|Custom-Modules|            Custom module documentation.",
