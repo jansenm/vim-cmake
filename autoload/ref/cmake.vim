@@ -114,7 +114,7 @@ function! s:page_cpack(query)
     if index( ref#available_source_names(), 'man' ) > -1
         return ref#available_sources('man').get_body('cpack')
     else
-        return cmake#cpack_output('--help-full')
+        return cpack#cpack_output('--help-full')
     end
 endfunction
 
@@ -123,7 +123,7 @@ function! s:page_ctest(query)
     if index( ref#available_source_names(), 'man' ) > -1
         return ref#available_sources('man').get_body('ctest')
     else
-        return cmake#ctest_output('--help-full')
+        return ctest#ctest_output('--help-full')
     end
 endfunction
 

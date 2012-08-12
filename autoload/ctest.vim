@@ -38,29 +38,28 @@ set cpo&vim
 let s:cache_initialized = 0                                           " {{{2
 " Is the cache already initialized?
 
-let s:cmake_help   = {}                                               " {{{2
+let s:ctest_help = {}                                                 " {{{2
 " { <type> => { <KEYWORD> => <TYPE> } }
 
-let s:cmake_types  = [ 'module', 'command', 'property', 'variable' ]  " {{{2
-" All availables cmake types we can have a list for (see cmake --help)
+let s:ctest_types  = [ 'command' ]                                    " {{{2
+" All availables ctest types we can have a list for (see ctest --help)
 
-"                                                                       }}}1
 " ============================================================================
 " LOCAL FUNCTIONS:                                                      {{{1
 
 function! s:get_names(type)                                           " {{{2
     " Return the list of keyword for a:type. a:type has to be one of
-    " s:cmake_type or this function will throw an exception.
+    " s:ctest_type or this function will throw an exception.
 
     " Verify type
-    if index(s:cmake_types, a:type) == -1
-        throw 'Unknown cmake type: '. a:type
+    if index(s:ctest_types, a:type) == -1
+        throw 'Unknown ctest type: '. a:type
     endif
 
     " Check if we have the keyword list cached.
-    if ! has_key( s:cmake_help, a:type )
-        " Ask cmake for the list.
-        let output = cmake#cmake_output( '--help-'. a:type .'-list' )
+    if ! has_key( s:ctest_help, a:type )
+        " Ask ctest for the list.
+        let output = ctest#ctest_output( '--help-'. a:type .'-list' )
 
         " Fill the cache
         let help = {}
@@ -69,14 +68,14 @@ function! s:get_names(type)                                           " {{{2
             " informations could be set.
             let help[ ident ] = {
                 \ 'word': ident,
-                \ 'menu': '[CMAKE]' }
+                \ 'menu': '[CTEST]' }
         endfor
 
-        let s:cmake_help[ a:type ] = help
+        let s:ctest_help[ a:type ] = help
     endif
 
     " Return the list.
-    return s:cmake_help[ a:type ]
+    return s:ctest_help[ a:type ]
 endfunction
 
 
@@ -84,58 +83,43 @@ function! s:get_help_text(type, what)                                 " {{{2
     " Return the help text for a:what of a:type
 
     " Verify type
-    if index(s:cmake_types, a:type) == -1
-        throw 'Unknown cmake type: '. a:type
+    if index(s:ctest_types, a:type) == -1
+        throw 'Unknown ctest type: '. a:type
     endif
 
-    " Call cmake with the option --help-<a:what> and return the output. a:what
+    " Call ctest with the option --help-<a:what> and return the output. a:what
     " is shellescape()d.
-    return cmake#cmake_output( '--help-'. a:type .' '. shellescape( a:what ) )
+    return ctest#ctest_output( '--help-'. a:type .' '. shellescape( a:what ) )
 endfunction
 
 "                                                                       }}}1
 " ============================================================================
 " FUNCTIONS:                                                            {{{1
 
-function! cmake#module_names()                                        " {{{2
-    " Get a list of all module names.
-    return s:get_names('module')
-endfunction
-
-function! cmake#variable_names()                                      " {{{2
+function! ctest#variable_names()                                      " {{{2
     " Get a list of all variable names.
     return s:get_names('variable')
 endfunction
 
-function! cmake#command_names()                                       " {{{2
+function! ctest#command_names()                                       " {{{2
     " Get a list of all commands names.
     return s:get_names('command')
 endfunction
 
-function! cmake#property_names()                                      " {{{2
-    " Get a list of all property names.
-    return s:get_names('property')
+function! ctest#ctest_output(args)                                    " {{{2
+    " Call ctest with a:args and return the output.
+    return system( g:vim_ctest_executable ." ". a:args )
 endfunction
 
-function! cmake#ccmake_output(args)                                    " {{{2
-    " Call ccmake with a:args and return the output.
-    return system( g:vim_ccmake_executable ." ". a:args )
+function! ctest#available()                                           " {{{2
+    " Check if the ctest executable is available
+    return executable( g:vim_ctest_executable )
 endfunction
 
-function! cmake#cmake_output(args)                                    " {{{2
-    " Call cmake with a:args and return the output.
-    return system( g:vim_cmake_executable ." ". a:args )
-endfunction
-
-function! cmake#available()                                           " {{{2
-    " Check if the cmake executable is available
-    return executable( g:vim_cmake_executable )
-endfunction
-
-function! cmake#complete(str)                                         " {{{2
+function! ctest#complete(str)                                         " {{{2
     " Return potential completions for a:str.
     let rc = []
-    for type in s:cmake_types
+    for type in s:ctest_types
         call extend(
             \ rc,
             \ filter(
@@ -145,11 +129,11 @@ function! cmake#complete(str)                                         " {{{2
     return sort( rc )
 endfunction
 
-function! cmake#find_help_for(identifier)                             " {{{2
+function! ctest#find_help_for(identifier)                             " {{{2
     " Return the help for a:identifier
 
     " Search for the help for a:identifier
-    for type in s:cmake_types
+    for type in s:ctest_types
         if has_key( s:get_names( type ), a:identifier )
             return s:get_help_text( type, a:identifier )
         endif
@@ -157,18 +141,18 @@ function! cmake#find_help_for(identifier)                             " {{{2
     return []
 endfunction
 
-function! cmake#all_names()                                           " {{{2
+function! ctest#all_names()                                           " {{{2
     " Get a list of all names
     let rc = []
-    for type in s:cmake_types
+    for type in s:ctest_types
         call extend(rc,  keys( s:get_names(type) ) )
     endfor
     return sort( rc )
 endfunction
 
-function! cmake#all_names_with_type()                                 " {{{2
+function! ctest#all_names_with_type()                                 " {{{2
     let rc = []
-    for type in s:cmake_types
+    for type in s:ctest_types
         call extend(rc, values( s:get_names(type) ) )
     endfor
     return rc
@@ -187,3 +171,4 @@ unlet s:save_cpo
 " ============================================================================
 " MODELINES:                                                            {{{2
 " vim: foldmethod=marker
+
