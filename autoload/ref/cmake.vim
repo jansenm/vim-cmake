@@ -49,11 +49,16 @@ let s:cmake_landing_page = [
 \ "|Compatibility-Commands|    Compatibility Commands.",
 \ "",
 \ "REFERENCES:",
-\ "|Reference-Full|            List of all names.",
-\ "|Reference-Commands|        List of all command names.",
-\ "|Reference-Variables|       List of all variable names.",
-\ "|Reference-Modules|         List of all module names.",
-\ "|Reference-Properties|      List of all property names.",
+\ "|cmake|                     Full reference.",
+\ "|cmake-commands|            Only command names.",
+\ "|cmake-variables|           Only variables.",
+\ "|cmake-modules|             Only modules.",
+\ "|cmake-properties|          Only properties.",
+\ "",
+\ "|ctest-commands|            Only command names.",
+\ "",
+\ "|cpack-commands|            Only command names.",
+\ "|cpack-variables|           Only variables.",
 \ ]
 
 " Page: Main Index                                                      {{{3
@@ -71,25 +76,34 @@ let s:cmake_help_index = {
     \           'func': "s:page_cpack",
     \           'type': "man" },
     \ 'Custom-Modules': {
-    \           'func': "s:cmake_index_custom_modules",
+    \           'func': "s:page_cmake_custom_modules_help",
     \           'type': "man" },
     \ 'Policies': {
-    \           'func': "s:cmake_index_policies",
+    \           'func': "s:page_cmake_policy_reference",
     \           'type': "man" },
-    \ 'Reference-Commands': {
-    \           'func': "s:cmake_index_commands",
+    \ 'cmake-commands': {
+    \           'func': "s:page_cmake_command_reference",
     \           'type': "index" },
-    \ 'Reference-Modules': {
-    \           'func': "s:cmake_index_modules",
+    \ 'cmake-modules': {
+    \           'func': "s:page_cmake_module_reference",
     \           'type': "index" },
-    \ 'Reference-Properties': {
-    \           'func': "s:cmake_index_properties",
+    \ 'cmake-properties': {
+    \           'func': "s:page_cmake_property_reference",
     \           'type': "index" },
-    \ 'Reference-Variables': {
-    \           'func': "s:cmake_index_variables",
+    \ 'cmake-variables': {
+    \           'func': "s:page_cmake_variables_reference",
     \           'type': "index" },
-    \ 'Reference-Full': {
-    \           'func': "s:cmake_index_all",
+    \ 'ctest-commands': {
+    \           'func': "s:page_ctest_command_reference",
+    \           'type': "index" },
+    \ 'cpack-commands': {
+    \           'func': "s:page_cpack_command_reference",
+    \           'type': "index" },
+    \ 'cpack-variables': {
+    \           'func': "s:page_cpack_variable_reference",
+    \           'type': "index" },
+    \ 'cmake': {
+    \           'func': "s:page_cmake_reference",
     \           'type': "index" },
     \ 'Compatibility-Commands': {
     \           'func': "s:cmake_index_compatibility",
@@ -137,7 +151,7 @@ function! s:cmake_index_compatibility(query)
 endfunction
 
 " Page: Custom Modules.                                                 {{{2
-function! s:cmake_index_custom_modules(query)
+function! s:page_cmake_custom_modules_help(query)
     return cmake#cmake_output('--help-custom-modules')
 endfunction
 
@@ -151,7 +165,7 @@ function! s:cmake_index_full_documentation(query)
 endfunction
 
 " Page: Policies                                                        {{{2
-function! s:cmake_index_policies(query)
+function! s:page_cmake_policy_reference(query)
     if index( ref#available_source_names(), 'man' ) > -1
         return ref#available_sources('man').get_body('cmakepolicies')
     else
@@ -160,27 +174,42 @@ function! s:cmake_index_policies(query)
 endfunction
 
 " List: All Names                                                       {{{2
-function! s:cmake_index_all(query)
+function! s:page_cmake_reference(query)
     return cmake#all_names()
 endfunction
 
 " List: Command Names                                                   {{{2
-function! s:cmake_index_commands(query)
+function! s:page_cmake_command_reference(query)
     return sort( keys( cmake#command_names() ) )
 endfunction
 
+" List: Command Names                                                   {{{2
+function! s:page_cpack_command_reference(query)
+    return sort( keys( cpack#command_names() ) )
+endfunction
+
+" List: Command Names                                                   {{{2
+function! s:page_ctest_command_reference(query)
+    return sort( keys( ctest#command_names() ) )
+endfunction
+
+" List: Command Names                                                   {{{2
+function! s:page_cpack_variable_reference(query)
+    return sort( keys( cpack#variable_names() ) )
+endfunction
+
 " List: Module Names                                                    {{{2
-function! s:cmake_index_modules(query)
+function! s:page_cmake_module_reference(query)
     return sort( keys( cmake#module_names() ) )
 endfunction
 
 " List: Property Names                                                  {{{2
-function! s:cmake_index_properties(query)
+function! s:page_cmake_property_reference(query)
     return sort( keys( cmake#property_names() ) )
 endfunction
 
 " List: Variable Names                                                  {{{2
-function! s:cmake_index_variables(query)
+function! s:page_cmake_variables_reference(query)
     return sort( keys( cmake#variable_names() ) )
 endfunction
 
