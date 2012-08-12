@@ -66,6 +66,9 @@ let s:cmake_help_index = {
     \ 'ctest-documentation': {
     \           'func': "s:page_ctest",
     \           'type': "man" },
+    \ 'cpack-documentation': {
+    \           'func': "s:page_cpack",
+    \           'type': "man" },
     \ 'Custom-Modules': {
     \           'func': "s:cmake_index_custom_modules",
     \           'type': "man" },
@@ -102,6 +105,15 @@ function! s:page_ccmake(query)
         return ref#available_sources('man').get_body('ccmake')
     else
         return cmake#ccmake_output('--help-full')
+    end
+endfunction
+
+" Page: cpack Documentation                                             {{{2
+function! s:page_cpack(query)
+    if index( ref#available_source_names(), 'man' ) > -1
+        return ref#available_sources('man').get_body('cpack')
+    else
+        return cmake#cpack_output('--help-full')
     end
 endfunction
 
