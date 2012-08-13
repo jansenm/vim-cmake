@@ -48,7 +48,7 @@ This plugin adds cmake support to the following plugins:
     - unite.vim     Ultimate interface to unite all sources
                     https://github.com/Shougo/unite.vim (via vim-ref)
 
-Or in less words. It provides a cmake reference and a auto completion system
+Or in less words. It provides a cmake reference and an auto completion system
 that hooks into neocomplcache.
 
 The information is acquired from the cmake executable found on $PATH.
@@ -82,7 +82,7 @@ CONFIGURATION                                       *ref-cmake-examples* {{{1
 CMAKE EXECUTABLE~
 
 Use this option to specify where the cmake executable is located. By default
-it is searched on the $PATH. You can specify a absolute path or just a
+it is searched on the $PATH. You can specify an absolute path or just a
 different name like 'cmake-2.8'.
 >
   :let g:vim_cmake_executable = 'cmake'
@@ -90,7 +90,7 @@ different name like 'cmake-2.8'.
 CCMAKE EXECUTABLE~
 
 Use this option to specify where the ccmake executable is located. By default
-it is searched on the $PATH. You can specify a absolute path or just a
+it is searched on the $PATH. You can specify an absolute path or just a
 different name like 'ccmake-2.8'.
 >
   :let g:vim_ccmake_executable = 'ccmake'
@@ -98,7 +98,7 @@ different name like 'ccmake-2.8'.
 CPACK EXECUTABLE~
 
 Use this option to specify where the cpack executable is located. By default
-it is searched on the $PATH. You can specify a absolute path or just a
+it is searched on the $PATH. You can specify an absolute path or just a
 different name like 'cpack-2.8'.
 >
   :let g:vim_ctest_executable = 'cpack'
@@ -106,7 +106,7 @@ different name like 'cpack-2.8'.
 CTEST EXECUTABLE~
 
 Use this option to specify where the ctest executable is located. By default
-it is searched on the $PATH. You can specify a absolute path or just a
+it is searched on the $PATH. You can specify an absolute path or just a
 different name like 'ctest-2.8'.
 >
   :let g:vim_ctest_executable = 'ctest'
