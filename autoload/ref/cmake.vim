@@ -266,7 +266,7 @@ function! s:ref_source.get_keyword()                                  " {{{2
 
     " With 'k' this is called out of the blue
     if !exists("b:vim_cmake_page_type")
-        return expand('<cWORD>')
+        return expand('<cword>')
     endif
 
     if b:vim_cmake_page_type == 'main_index'
